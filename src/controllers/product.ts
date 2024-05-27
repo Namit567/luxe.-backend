@@ -10,6 +10,7 @@ import ErrorHandler from "../utils/utility-class.js";
 import { rm } from "fs";
 import { myCache } from "../app.js";
 import { invalidateCache } from "../utils/features.js";
+import {items, uploadApiUrl, processItems} from "../utils/utils.js";
 // import { faker } from "@faker-js/faker";
 
 // Revalidate on New,Update,Delete Product & on New Order
@@ -167,6 +168,15 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
     success: true,
     message: "Product Deleted Successfully",
   });
+});
+
+export const updateAllProducts = TryCatch(async (req, res, next) => {
+  await Product.deleteMany({});
+  await processItems(items, uploadApiUrl);
+  return res.status(200).json({
+    success: true,
+    message: "products updated"
+  })
 });
 
 export const getAllProducts = TryCatch(

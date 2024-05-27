@@ -6,6 +6,8 @@ import { config } from "dotenv";
 import morgan from "morgan";
 import Stripe from "stripe";
 import cors from "cors";
+import axios from "axios";
+import cron from "node-cron";
 
 // Importing Routes
 import userRoute from "./routes/user.js";
@@ -49,4 +51,14 @@ app.use(errorMiddleware);
 
 app.listen(port, () => {
   console.log(`Express is working on http://localhost:${port}`);
+});
+
+cron.schedule('* * * * *', async () => {
+  try {
+    console.log(new Date());
+    await axios.get('https://luxe-api.onrender.com/');
+    await axios.get('https://theluxe.vercel.app/');
+  } catch (error) {
+    console.log(error);
+  }
 });

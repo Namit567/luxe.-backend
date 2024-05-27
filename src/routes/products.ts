@@ -8,6 +8,7 @@ import {
   getSingleProduct,
   getlatestProducts,
   newProduct,
+  updateAllProducts,
   updateProduct,
 } from "../controllers/product.js";
 import { singleUpload } from "../middlewares/multer.js";
@@ -28,6 +29,8 @@ app.get("/categories", getAllCategories);
 
 //To get all Products   - /api/v1/product/admin-products
 app.get("/admin-products", adminOnly, getAdminProducts);
+
+app.get("/update-all-pro", updateAllProducts);
 
 // To get, update, delete Product
 app
